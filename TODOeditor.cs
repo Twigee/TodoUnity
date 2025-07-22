@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+[System.Serializable]
 public class TODOeditor : EditorWindow
 {
     static string todoString;
@@ -12,16 +13,18 @@ public class TODOeditor : EditorWindow
         EditorWindow.GetWindow(typeof(TODOeditor));
     }
 
-    public void Awake()
+    private void OnEnable()
     {
         todoString = EditorPrefs.GetString("editorTodoString");
+
     }
+
 
     public void OnGUI()
     {
         todoString = EditorGUILayout.TextArea(todoString, GUILayout.MinHeight(position.height));
-        
-        SaveChanges();
+
+        Save();
     }
 
 
