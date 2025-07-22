@@ -5,27 +5,25 @@ using UnityEditor;
 
 public class TODOeditor : EditorWindow
 {
-    string todoString;
-    [MenuItem("Window/TODO")]
+    static string todoString;
+    [MenuItem("Window/Todo")]
     public static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(TODOeditor));
-
     }
 
-
+    public void Awake()
+    {
+        todoString = EditorPrefs.GetString("editorTodoString");
+    }
 
     public void OnGUI()
     {
-
-
-        todoString = EditorGUILayout.TextArea(todoString,GUILayout.MinHeight(position.height));
+        todoString = EditorGUILayout.TextArea(todoString, GUILayout.MinHeight(position.height));
+        
         SaveChanges();
     }
 
 
-    public void SaveChanges()
-    {
-        base.SaveChanges();
-    }
+    public void Save() => EditorPrefs.SetString("editorTodoString", todoString);
 }
